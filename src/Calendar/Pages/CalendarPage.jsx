@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux"
 import { useCalendarStore } from "../../Hooks/useCalendarStore"
 import { AddNew } from "../components/AddNew"
 import { FabDelete } from "../components/FabDelete"
+import { useEffect } from "react"
 
 const locales={
   'en-US':enUS,
@@ -29,9 +30,14 @@ const localizer=dateFnsLocalizer({
 
 export const CalendarPage = () => {
 
+
   const {onToogleModal}=useUIModal();
 
-  const {eventos,onSetActiveEvent}=useCalendarStore();
+  const {eventos,onSetActiveEvent,onLoadEventos}=useCalendarStore();
+
+  useEffect(()=>{
+    onLoadEventos();
+  },[])
 
   const [lastView,setlastView]=useState(localStorage.getItem('lastView') || 'month');
 

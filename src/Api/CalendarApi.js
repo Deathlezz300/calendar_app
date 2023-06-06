@@ -9,4 +9,16 @@ const calendarApi=axios.create({
 
 // Todo : configurar los interceptores
 
+
+//Se agrega el header de 'x-token'
+calendarApi.interceptors.request.use(config=>{
+
+    config.headers={
+        ...config.headers,
+        'x-token':localStorage.getItem('token')
+    };
+
+    return config;
+});
+
 export default calendarApi;

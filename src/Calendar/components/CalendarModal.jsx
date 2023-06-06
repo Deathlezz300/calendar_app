@@ -96,9 +96,9 @@ export const CalendarModal = () => {
     onToogleModal();
     setformSubmited(false);
     if(formValues.id){
-      Swal.fire('Nota Actualizada','Actualizada correctamente','succes')
+      Swal.fire('Nota Actualizada','Actualizada correctamente','success');
     }else{
-      Swal.fire('Nota creada','Agregada correctamente','success')
+      Swal.fire('Nota creada','Agregada correctamente','success');
     }
   }
 

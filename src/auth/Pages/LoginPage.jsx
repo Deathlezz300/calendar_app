@@ -25,7 +25,7 @@ export const LoginPage = () => {
     const {RegisterName,RegisterEmail,RegisterPassword,RegisterRepeatPassword
         ,onInputChange:onRegisterChange}=useForm(RegisterFormFields,{});
 
-    const {startLogin,errorMessage}=useAuthStore();
+    const {startLogin,errorMessage,startRegister}=useAuthStore();
 
     const onLoginSumbit=(evento)=>{
         evento.preventDefault();
@@ -34,6 +34,12 @@ export const LoginPage = () => {
 
     const onRegisterSubmit=(evento)=>{
         evento.preventDefault();
+        if(RegisterPassword!=RegisterRepeatPassword){
+            Swal.fire('Error en registro','Contraseña no iguales','error');
+            return;
+        }
+
+        startRegister({name:RegisterName,email:RegisterEmail,password:RegisterPassword});
     }
 
     useEffect(()=>{

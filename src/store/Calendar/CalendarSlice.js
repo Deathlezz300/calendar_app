@@ -17,12 +17,9 @@ const Tempevent={
 export const CalendarSlice = createSlice({
     name: 'Calendar',
     initialState: {
-     eventos:[Tempevent],
+     statusLoading:null,
+     eventos:[],
      activeEvent:null,
-     user:{
-      id:'123',
-      name:'Alejandro'
-     },
      hasEventSelected:false
     },
     reducers: {
@@ -33,6 +30,7 @@ export const CalendarSlice = createSlice({
          onAddNewEvent:(state,{payload})=>{
             state.eventos.push(payload);
             state.activeEvent=null;
+            state.statusLoading=null;
          },
          onUpdateNote:(state,{payload})=>{
             state.eventos=state.eventos.map(note=>{
@@ -44,6 +42,7 @@ export const CalendarSlice = createSlice({
 
             })
             state.activeEvent=null;
+            state.statusLoading=null;
          },
          onDeleteEvent:(state)=>{
             state.eventos=state.eventos.filter(note=>{
@@ -51,10 +50,19 @@ export const CalendarSlice = createSlice({
             })
             state.activeEvent=null;
             state.hasEventSelected=false;
+            state.statusLoading=null;
+         },
+         onSetEvents:(state,{payload})=>{
+           state.eventos=payload;
+           state.statusLoading=null;
+         },
+         onChangeStatus:(state)=>{
+           state.statusLoading='loading';
          }
+
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { setActiveEvent,onAddNewEvent,onUpdateNote,onDeleteEvent } = CalendarSlice.actions;
+export const { setActiveEvent,onAddNewEvent,onUpdateNote,onDeleteEvent,onSetEvents,onChangeStatus } = CalendarSlice.actions;
