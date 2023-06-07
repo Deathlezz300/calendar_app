@@ -3,6 +3,7 @@ import { LoginPage } from "../auth/Pages/LoginPage";
 import { CalendarPage } from "../Calendar/Pages/CalendarPage";
 import { useAuthStore } from "../Hooks/useAuthStore";
 import { useEffect } from "react";
+import { Loader } from "../Calendar/components/Loader";
 
 export const AppRouter = () => {
 
@@ -14,7 +15,7 @@ export const AppRouter = () => {
   },[]);
 
   if(status==='checking'){
-    return <h2>Cargando...</h2>
+    return <Loader/>
   }
 
   return (

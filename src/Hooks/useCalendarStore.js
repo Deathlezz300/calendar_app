@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { onAddNewEvent, onChangeStatus, onDeleteEvent, onSetEvents, onUpdateNote, setActiveEvent } from "../store/Calendar/CalendarSlice";
 import calendarApi from "../Api/CalendarApi";
 import { ConvertEventsToDateEvents } from "../helpers/ConvertEventosToDateEvents";
+import Swal from "sweetalert2";
 
 export const useCalendarStore=()=>{
 
@@ -39,11 +40,15 @@ export const useCalendarStore=()=>{
             try{
                 const {data}=await calendarApi.put(`/eventos/actualizar/${id}`,{title,notes,start,end});
                 if(data.ok){
-                    dispatch(onUpdateNote(data.evento));
+                    dispatch(onUpdateNote({
+                        ...data.evento,
+                        user:{_id:data.evento.user,name:user.name}
+                    }));
                 }
 
             }catch(error){
                 console.log(error);
+                Swal.fire('Error al guardar',error.response.data?.message,'error');
             }
         }
     }
@@ -53,7 +58,10 @@ export const useCalendarStore=()=>{
         try{
 
             const {data}=await calendarApi.get('/eventos');
-            const eventos=ConvertEventsToDateEvents(data.eventos);
+            let eventos=ConvertEventsToDateEvents(data.eventos);
+            eventos=eventos.filter(evento1=>{
+                return evento1.user._id==user.uid;
+            });
             if(data.ok){
                 dispatch(onSetEvents(eventos))
             }
