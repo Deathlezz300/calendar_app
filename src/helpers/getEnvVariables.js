@@ -1,9 +1,9 @@
 export const getEnvVariables=()=>{
 
-    import.meta.env;
+    const VITE_API_URL='https://calenderappbackend300.up.railway.app/api'
 
     return {
-        ...import.meta.env
+        VITE_API_URL
     }
 
 }
