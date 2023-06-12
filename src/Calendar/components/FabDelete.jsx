@@ -11,7 +11,7 @@ export const FabDelete = () => {
     }
 
   return (
-    <button onClick={onDeleteNote} style={{display: hasEventSelected ? '' : 'none'}} className="btn btn-danger fab-danger">
+    <button aria-label="btn-delete" onClick={onDeleteNote} style={{display: hasEventSelected ? '' : 'none'}} className="btn btn-danger fab-danger">
         <i className="fas fa-trash-alt"></i>
     </button>
   )

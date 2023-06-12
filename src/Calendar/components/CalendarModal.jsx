@@ -8,10 +8,10 @@ import es from 'date-fns/locale/es'
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useUIModal } from '../../Hooks/useUIModal';
 import { useEffect } from 'react';
 import { useCalendarStore } from '../../Hooks/useCalendarStore';
+import { getEnvVariables } from '../../helpers/getEnvVariables';
 
 registerLocale('es',es);
 
@@ -26,7 +26,10 @@ const customStyles = {
     },
   };
 
-Modal.setAppElement('#root');
+
+if(getEnvVariables().MODE!='TEST'){
+  Modal.setAppElement('#root');
+}
 
 export const CalendarModal = () => {
 
